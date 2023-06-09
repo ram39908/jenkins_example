@@ -1,0 +1,34 @@
+pipeline 
+{
+    agent any 
+    stages
+	{
+        stage('hello')
+		{
+        steps
+              {
+                sh 'echo "hello world"'
+               }
+	    }
+      
+        stage('Test') 
+       {
+       steps
+        {
+         input message: 'waiting for approval from srikanth to download code', submitter: 'srikanth'
+         git branch: 'main', url: 'https://github.com/ram39908/DevOps-task.git'
+         mail bcc: '', body: '', cc: 'Project2488@g,ail.com', from: '', replyTo: '', subject: 'Build to perform a project', to: 'srikanth@gmail.com'
+        }
+
+            }
+        }
+
+ post { 
+        aborted 
+		{ 
+            sh '"project Aborted"'
+        }
+
+    }
+	
+ }
